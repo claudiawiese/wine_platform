@@ -1,25 +1,23 @@
-# Utiliser une image Ruby officielle
-FROM ruby:2.7
+# Use the official Ruby image
+FROM ruby:3.2
 
-# Installer les dépendances de l'application
+# Install dependencies
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 
-# Définir le répertoire de travail de l'application
+# Set the working directory
 WORKDIR /app
 
-# Copier le Gemfile et Gemfile.lock et installer les gemmes
+# Copy Gemfile and Gemfile.lock and install gems
 COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
+RUN bundle update
 RUN bundle install
 
-# Copier le reste de l'application
+# Copy the rest of the application
 COPY . /app
 
-# Précompiler les assets (si nécessaire)
-RUN bundle exec rake assets:precompile
-
-# Exposer le port de l'application
+# Expose the application port
 EXPOSE 3000
 
-# Définir la commande pour démarrer l'application
+# Start the Rails server
 CMD ["rails", "server", "-b", "0.0.0.0"]
