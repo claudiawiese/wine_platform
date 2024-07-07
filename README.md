@@ -22,3 +22,32 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+### example sign up for new user 
+
+curl --location --request POST 'http://127.0.0.1:3000/users/tokens/sign_up' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "test@development.com",
+    "password": "123456"
+}'
+
+### example sign in with test user
+
+curl --location --request POST 'http://127.0.0.1:3000/users/tokens/sign_in' \                                                     
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "test@development.com",
+    "password": "123456"
+}'
+
+genrates token to look at user's reviews' list
+
+### check user's review
+
+curl --location --request GET 'http://127.0.0.1:3000/reviews' \                                                                   
+--header 'Authorization: Bearer <generated_token_here>' \
+--header 'Content-Type: application/json'
+
+
+

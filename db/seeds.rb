@@ -2,6 +2,7 @@
 Review.destroy_all
 Wine.destroy_all
 User.destroy_all
+Price.destroy_all
 
 
 # Seed data for users
@@ -21,7 +22,7 @@ wines = [
 ]
 
 # Create wines from the seed data
-wines.each do |wine_params|
+created_wines = wines.map do |wine_params|
   Wine.create!(wine_params)
 end
 
@@ -40,4 +41,19 @@ reviews.each do |review_params|
   Review.create!(review_params)
 end
 
-puts "Seed data for reviews created successfully!"
+# Seed data for prices
+prices = [
+  { wine: created_wines[0], price: 7.0, created_at: Time.now - 2.year },
+  { wine: created_wines[0], price: 10.0, created_at: Time.now - 6.months },
+  { wine: created_wines[1], price: 15.0, created_at: Time.now - 1.year },
+  { wine: created_wines[1], price: 16.0, created_at: Time.now - 6.months },
+  { wine: created_wines[2], price: 18.0, created_at: Time.now - 1.year },
+  { wine: created_wines[2], price: 20.0, created_at: Time.now - 6.months }
+]
+
+# Create prices from the seed data
+prices.each do |price|
+  Price.create!(price)
+end
+
+puts "Seed data for prices created successfully!"
