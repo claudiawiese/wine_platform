@@ -3,12 +3,57 @@ class ReviewsController < ApplicationController
     def index
         devise_api_token = current_devise_api_token
         if devise_api_token
-            user = current_devise_api_user
-            @reviews = Review.where(user_id: user.id)
+            @reviews = current_devise_api_user.reviews
             render json: @reviews
         else
             render json: {message: "You have to be log in to see reviews"}, status: :unauthorized
         end
     end
-  end
   
+    # GET /reviews/:id
+    def show
+      review = current_devise_api_user.reviews.find(params[:id])
+      render json: review
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: 'Review not found' }, status: :not_found
+    end
+  
+    # POST /reviews
+    def create
+      review = current_devise_api_user.reviews.build(review_params)
+  
+      if review.save
+        render json: review, status: :created
+      else
+        render json: { errors: review.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
+  
+    # PATCH/PUT /reviews/:id
+    def update
+      review = current_devise_api_user.reviews.find(params[:id])
+  
+      if review.update(review_params)
+        render json: review
+      else
+        render json: { errors: review.errors.full_messages }, status: :unprocessable_entity
+      end
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: 'Review not found' }, status: :not_found
+    end
+  
+    # DELETE /reviews/:id
+    def destroy
+      review = current_devise_api_user.reviews.find(params[:id])
+      review.destroy
+      head :no_content
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: 'Review not found' }, status: :not_found
+    end
+  
+    private
+  
+    def review_params
+      params.require(:review).permit(:rating, :comment)
+    end
+end
