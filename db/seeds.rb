@@ -33,6 +33,9 @@ reviews = [
   { rating: 4, comment: "Great taste and aroma.", wine_id: Wine.first.id, user_id: user.id},
   { rating: 5, comment: "Absolutely delicious! Would buy again.", wine_id: Wine.first.id, user_id: user.id},
   { rating: 3, comment: "Decent wine for the price.", wine_id: Wine.first.id, user_id: user.id},
+  { rating: 5, comment: "Great, great, great taste and aroma.", wine_id: Wine.last.id, user_id: user.id},
+  { rating: 5, comment: "Absolutely delicious! I recommend it 100%.", wine_id: Wine.last.id, user_id: user.id},
+  { rating: 5, comment: "Fantastic wine for a very good price.", wine_id: Wine.last.id, user_id: user.id},
   # Add more reviews as needed
 ]
 
@@ -43,12 +46,12 @@ end
 
 # Seed data for prices
 prices = [
-  { wine: created_wines[0], price: 7.0, created_at: Time.now - 2.year },
-  { wine: created_wines[0], price: 10.0, created_at: Time.now - 6.months },
-  { wine: created_wines[1], price: 15.0, created_at: Time.now - 1.year },
-  { wine: created_wines[1], price: 16.0, created_at: Time.now - 6.months },
-  { wine: created_wines[2], price: 18.0, created_at: Time.now - 1.year },
-  { wine: created_wines[2], price: 20.0, created_at: Time.now - 6.months }
+  { wine: created_wines[0], price: 7.0, recorded_at: Time.now - 2.year },
+  { wine: created_wines[0], price: 10.0, recorded_at: Time.now - 6.months },
+  { wine: created_wines[1], price: 15.0, recorded_at: Time.now - 1.year },
+  { wine: created_wines[1], price: 16.0, recorded_at: Time.now - 6.months },
+  { wine: created_wines[2], price: 18.0, recorded_at: Time.now - 1.year },
+  { wine: created_wines[2], price: 20.0, recorded_at: Time.now - 6.months }
 ]
 
 # Create prices from the seed data

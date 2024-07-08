@@ -1,7 +1,12 @@
 class WinesController < ApplicationController
     def index
-        @wines = Wine.all.includes(:reviews, :prices) # Ensure reviews are eager loaded to avoid N+1 queries
+        @wines = Wine.all.includes(:reviews, :prices).left_joins(:reviews)
+        .select('wines.*, AVG(reviews.rating) AS average_rating')
+        .group('wines.id')
+        .order('average_rating DESC NULLS LAST')      
+
         filter_by_price
+        
         wines_with_average_ratings = @wines.map do |wine|
           {
             id: wine.id,
