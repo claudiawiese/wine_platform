@@ -1,6 +1,5 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
-require 'devise'
 require 'devise/test/integration_helpers'
 require 'database_cleaner/active_record'
 
@@ -67,6 +66,8 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  config.include RSpec::Rails::RequestExampleGroup, type: :request
+
   #configure FactoryBot
   config.include FactoryBot::Syntax::Methods
   
@@ -74,4 +75,13 @@ RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :request
 
   #Test Database cleaner
+  config.before do
+    DatabaseCleaner.start
+  end
+
+  config.after do
+    DatabaseCleaner.clean
+  end
+
+
 end

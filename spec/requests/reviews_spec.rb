@@ -1,5 +1,4 @@
 require 'rails_helper'
-
 RSpec.describe "Reviews", type: :request do
   describe "GET /reviews" do
     let(:user) { create(:user) }
@@ -13,7 +12,7 @@ RSpec.describe "Reviews", type: :request do
     context 'when user is not logged in' do
       it "returns authorization error" do
         get '/reviews'
-        expect(response).to have_http_status(403)  # Expecting 403 for unauthorized access
+        expect(response).to have_http_status(401) 
       end
     end
 
@@ -23,7 +22,7 @@ RSpec.describe "Reviews", type: :request do
       end
 
       it "returns list of reviews of the current_user" do
-        get '/reviews', headers: { 'Authorization' => "Bearer #{devise_api_token.access_token}" }
+        get '/reviews', headers: { 'Authorization' => "Bearer #{devise_api_token.access_token }"}
         expect(response).to have_http_status(200)  # Expecting 200 for authorized access
         json = JSON.parse(response.body)
         expect(json.size).to eq(2)
@@ -47,17 +46,17 @@ RSpec.describe "Reviews", type: :request do
 
     it 'returns not found for reviews of other users' do
       get "/reviews/#{other_review.id}", headers: { 'Authorization' => "Bearer #{devise_api_token.access_token}" }
-      expect(response).to have_http_status(403)  # Expecting 403 for unauthorized access
+      expect(response).to have_http_status(404)  # Expecting 404 resource not found for this user
     end 
   end 
 
   describe "POST /reviews" do
     let(:user) { create(:user) }
     let(:devise_api_token) { create(:devise_api_token, resource_owner: user) }
-
+    let(:wine) {create(:wine)}
+    
     it 'creates a new review' do
-      wine = create(:wine)
-      post '/reviews', params: { review: { wine_id: wine.id, rating: 4 } }, headers: { 'Authorization' => "Bearer #{devise_api_token.access_token}" }
+      post '/reviews', params: { review: {wine_id: wine.id, rating: 4 } }, headers: { 'Authorization' => "Bearer #{devise_api_token.access_token}" }
       expect(response).to have_http_status(201)  # Adjust as per your application's response status
     end
   end

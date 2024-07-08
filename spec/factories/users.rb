@@ -7,18 +7,6 @@ FactoryBot.define do
       association :resource_owner, factory: :user
       access_token { SecureRandom.hex(32) }
       refresh_token { SecureRandom.hex(32) }
-      expires_in { 1.hour.to_i }
-  
-      trait :access_token_expired do
-        created_at { 2.hours.ago }
-      end
-  
-      trait :refresh_token_expired do
-        created_at { 2.months.ago }
-      end
-  
-      trait :revoked do
-        revoked_at { 5.minutes.ago }
-      end
+      expires_in { 3.hour.to_i }
     end
   end

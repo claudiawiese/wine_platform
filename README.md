@@ -46,7 +46,7 @@ genrates token to look at user's reviews' list
 ### check user's review
 
 curl --location --request GET 'http://127.0.0.1:3000/reviews' \                                                                   
---header 'Authorization: Bearer <generated_token_here>' \
+--header 'Authorization: Bearer s7Q_FNezuj6NQaBf7eYj-4fDM8Lz3JB9XUcJQRgiutX45K8UVu3iY9fUNFy_' \
 --header 'Content-Type: application/json'
 
 

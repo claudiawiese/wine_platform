@@ -21,7 +21,7 @@ class ReviewsController < ApplicationController
     # POST /reviews
     def create
       review = current_devise_api_user.reviews.build(review_params)
-  
+
       if review.save
         render json: review, status: :created
       else
@@ -54,6 +54,6 @@ class ReviewsController < ApplicationController
     private
   
     def review_params
-      params.require(:review).permit(:rating, :comment)
+      params.require(:review).permit(:wine_id, :rating, :comment)
     end
 end
