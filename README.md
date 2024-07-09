@@ -1,24 +1,46 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Ruby version: 3.2
+* DB: postgreSQL
 
-Things you may want to cover:
+## Project Installation
+You need docker and docker-compose 
 
-* Ruby version
+Step 1: docker-compose build 
+Step 2: docker-compose up 
+Step 3: docker-compose run web rails db:seed
 
-* System dependencies
+Application should be available at localhost:3000 
 
-* Configuration
+## Wine index
+curl --location --request GET 'http://127.0.0.1:3000/wines' 
 
-* Database creation
+## Sign up and sign in
+### example sign up for new user 
 
-* Database initialization
+curl --location --request POST 'http://127.0.0.1:3000/users/tokens/sign_up' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "test@example.com",
+    "password": "123456"
+    "role_id": 3
+}'
 
-* How to run the test suite
+### example sign in with expert user
 
-* Services (job queues, cache servers, search engines, etc.)
+curl --location --request POST 'http://127.0.0.1:3000/users/tokens/sign_in' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "expert@example.com",
+    "password": "password"
+}'
 
-* Deployment instructions
+genrates token to look at expert user's reviews' list
 
-* ...
+## Review actions
+
+##see signed up user's reviews 
+
+curl --location --request GET 'http://127.0.0.1:3000/reviews' \                               
+--header 'Authorization: Bearer <user_token>' \
+--header 'Content-Type: application/json'
