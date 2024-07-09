@@ -23,10 +23,10 @@ Step 3: docker-compose run web rails db:seed
 Application should be available at localhost:3000 
 
 ## Wine Actions
-### Wine index
+### get /wines
 curl --location --request GET 'http://127.0.0.1:3000/wines' 
 
-### Wine price histories 
+### get /wine_price_histories
 curl --location --request GET 'http://127.0.0.1:3000/wine_price_histories' 
 
 ## Sign up and sign in
@@ -53,14 +53,27 @@ genrates token to look at user's reviews' list
 
 ## Review actions
 
-### see signed up user's reviews 
-
+### get /reviews
 curl --location --request GET 'http://127.0.0.1:3000/reviews' \                               
 --header 'Authorization: Bearer <user_token>' \
 --header 'Content-Type: application/json'
 
-### see a specfic review
+### get /reviews/:id
 curl --location --request GET 'http://127.0.0.1:3000/reviews/:id' \                               
+--header 'Authorization: Bearer <user_token>' \
+--header 'Content-Type: application/json'
+
+### patch /reviews/:id
+curl --location --request PATCH 'http://127.0.0.1:3000/reviews/:id' \                               
+--header 'Authorization: Bearer <user_token>' \
+--header 'Content-Type: application/json'
+--data-raw '{
+    "rating": "4",
+    "comment": "new comment"
+}'
+
+### delete /reviews/:id
+curl --location --request DELETE 'http://127.0.0.1:3000/reviews/:id' \                               
 --header 'Authorization: Bearer <user_token>' \
 --header 'Content-Type: application/json'
 
