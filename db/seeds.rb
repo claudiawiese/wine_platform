@@ -6,13 +6,21 @@ Price.destroy_all
 
 
 # Seed data for users
-user = User.create!(
-  email: 'user@example.com',
-  password: 'password',
-  password_confirmation: 'password'
-)
+Role.create([{ name: 'admin' }, { name: 'expert' }, { name: 'client' }])
 
-puts "Seed data for users created successfully!"
+# Create a default admin user
+admin = User.create(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+admin.add_role(:admin)
+
+# Create a default expert user
+expert = User.create(email: 'expert@example.com', password: 'password', password_confirmation: 'password')
+expert.add_role(:expert)
+
+# Create a default client user
+client = User.create(email: 'client@example.com', password: 'password', password_confirmation: 'password')
+client.add_role(:client)
+
+puts "Seed data for users and user roles created successfully!"
 
 # Seed data for wines
 wines = [
@@ -30,12 +38,12 @@ puts "Seed data for wines created successfully!"
 
 #Seed data for review
 reviews = [
-  { rating: 4, comment: "Great taste and aroma.", wine_id: Wine.first.id, user_id: user.id},
-  { rating: 5, comment: "Absolutely delicious! Would buy again.", wine_id: Wine.first.id, user_id: user.id},
-  { rating: 3, comment: "Decent wine for the price.", wine_id: Wine.first.id, user_id: user.id},
-  { rating: 5, comment: "Great, great, great taste and aroma.", wine_id: Wine.last.id, user_id: user.id},
-  { rating: 5, comment: "Absolutely delicious! I recommend it 100%.", wine_id: Wine.last.id, user_id: user.id},
-  { rating: 5, comment: "Fantastic wine for a very good price.", wine_id: Wine.last.id, user_id: user.id},
+  { rating: 4, comment: "Great taste and aroma.", wine_id: Wine.first.id, user_id: expert.id},
+  { rating: 5, comment: "Absolutely delicious! Would buy again.", wine_id: Wine.first.id, user_id: expert.id},
+  { rating: 3, comment: "Decent wine for the price.", wine_id: Wine.first.id, user_id: expert.id},
+  { rating: 5, comment: "Great, great, great taste and aroma.", wine_id: Wine.last.id, user_id: expert.id},
+  { rating: 5, comment: "Absolutely delicious! I recommend it 100%.", wine_id: Wine.last.id, user_id: expert.id},
+  { rating: 5, comment: "Fantastic wine for a very good price.", wine_id: Wine.last.id, user_id: expert.id},
   # Add more reviews as needed
 ]
 

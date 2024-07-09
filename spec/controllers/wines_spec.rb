@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'webmock/rspec'
 RSpec.describe "Wines", type: :request do
     describe "GET /wines" do
       before do
@@ -21,6 +22,7 @@ RSpec.describe "Wines", type: :request do
         create(:review, wine: Wine.last, user: User.first, rating: 4)
         create(:review, wine: Wine.last, user: User.first, rating: 3)
         create(:review, wine: Wine.last, user: User.first, rating: 2)
+      
       end
   
       it "returns a list of wines" do
@@ -74,4 +76,8 @@ RSpec.describe "Wines", type: :request do
         expect(json.last['average_rating']).to eq("n.a.")
       end
     end
+
+    describe "GET /wine_price_histories", type: :request do 
+      
+    end 
   end

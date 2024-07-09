@@ -32,7 +32,7 @@ class ReviewsController < ApplicationController
     # PATCH/PUT /reviews/:id
     def update
       review = current_devise_api_user.reviews.find(params[:id])
-  
+
       if review.update(review_params)
         render json: review
       else
@@ -56,4 +56,12 @@ class ReviewsController < ApplicationController
     def review_params
       params.require(:review).permit(:wine_id, :rating, :comment)
     end
+=begin
+#under construction
+    def verify_user_role
+      if !current_devise_api_user.expert?
+        render json: { error: 'User is not an expert' }
+      end
+    end
+=end 
 end
