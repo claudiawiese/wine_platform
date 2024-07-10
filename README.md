@@ -26,6 +26,9 @@ Application should be available at localhost:3000
 ### get /wines
 curl --location --request GET 'http://127.0.0.1:3000/wines' 
 
+### get /wines/min_price=[:price]&max_price[:price]
+curl --location --request GET 'http://127.0.0.1:3000/wines/min_price=[:price]&max_price[:price]' 
+
 ### get /wine_price_histories
 curl --location --request GET 'http://127.0.0.1:3000/wine_price_histories' 
 
@@ -62,6 +65,16 @@ curl --location --request GET 'http://127.0.0.1:3000/reviews' \
 curl --location --request GET 'http://127.0.0.1:3000/reviews/:id' \                               
 --header 'Authorization: Bearer <user_token>' \
 --header 'Content-Type: application/json'
+
+### post /reviews/
+curl --location --request PATCH 'http://127.0.0.1:3000/reviews/:id' \                               
+--header 'Authorization: Bearer <user_token>' \
+--header 'Content-Type: application/json'
+--data-raw '{
+    "rating": "5",
+    "comment": "my comment"
+    "wine_id": "wine_id"
+}'
 
 ### patch /reviews/:id
 curl --location --request PATCH 'http://127.0.0.1:3000/reviews/:id' \                               
