@@ -5,7 +5,7 @@ This app is an API that allows the user to see different wines with different ra
 
 Logged in users can write reviews with a rating and a comment. The authentication process is using the devise gem. 
 
-User can have different roles. But the application policies linked to the user roles are still in progress. The idea is to set it up with the pundi gem. 
+User can have different roles. But the application policies linked to the user roles are still in progress. The idea is to set it up with the pundit gem. 
 
 An external wine api service can be plugged into the app by using the external_api_service. 
 
